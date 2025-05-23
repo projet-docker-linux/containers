@@ -31,6 +31,7 @@ services:
       MYSQL_PASSWORD: vgpassword
     volumes:
       - db_data:/var/lib/mysql
+      - ./php_code/sql/import.sql:/docker-entrypoint-initdb.d/import.sql
     ports:
       - "3306:3306"
 
