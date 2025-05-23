@@ -21,7 +21,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `articles` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
   `description` text NOT NULL,
   `published_date` date DEFAULT NULL,
@@ -74,12 +74,13 @@ INSERT INTO `articles` (`id`, `name`, `description`, `published_date`, `user_id`
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(100) NOT NULL,
   `email` varchar(254) NOT NULL,
   `password` text NOT NULL,
   `salt` text NOT NULL,
-  `is_admin` tinyint(4) NOT NULL DEFAULT '0'
+  `is_admin` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
