@@ -4,3 +4,4 @@ db_data/
 uploads/
 *.log
 *.sh~
+node_modules/
