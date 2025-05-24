@@ -60,6 +60,11 @@ abstract class Controller
      */
     protected function before()
     {
+        // Vérifier le cookie remember me si l'utilisateur n'est pas connecté
+        if (!isset($_SESSION['user'])) {
+            $userController = new \App\Controllers\User([]);
+            $userController->checkRememberMe();
+        }
     }
 
     /**
