@@ -36997,6 +36997,17 @@ INSERT INTO `villes_france` (`ville_id`, `ville_departement`, `ville_slug`, `vil
 (36828, '971', 'st-martin', 'SAINT MARTIN', 'st martin', 'Saint-Martin', 'S535635', 'SNTMRTN', '97150', '127', '97127', 0, NULL, NULL, 36979, 36979, 36979, 695, 53.2, 18.0913, -63.0829, NULL, NULL, NULL, NULL, NULL, NULL),
 (36830, '975', 'st-pierre-et-miquelon', 'SAINT PIERRE ET MIQUELON', 'st pierre et miquelon', 'Saint-Pierre-et-Miquelon', 'S531635245', 'SNTPR', '97500', '501', '97501', 0, NULL, NULL, 6080, 6080, 6080, 25, 242, 46.7107, 1.71819, NULL, NULL, NULL, NULL, NULL, NULL);
 
+
+CREATE TABLE remember_tokens (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    token VARCHAR(64) NOT NULL,
+    expiry INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_token (token)
+);
+
 --
 -- Indexes for dumped tables
 --

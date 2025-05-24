@@ -115,14 +115,28 @@ class User extends \Core\Controller
                 return false;
             }
 
-            // TODO: Create a remember me cookie if the user has selected the option
-            // to remained logged in on the login form.
-            // https://github.com/andrewdyer/php-mvc-register-login/blob/development/www/app/Model/UserLogin.php#L86
-
+            // Créer la session utilisateur
             $_SESSION['user'] = array(
                 'id' => $user['id'],
                 'username' => $user['username'],
             );
+
+            if (isset($data['remember_me']) && $data['remember_me'] == '1') {
+                $token = bin2hex(random_bytes(32)); 
+                $expiry = time() + (30 * 24 * 60 * 60); 
+                
+                \App\Models\User::storeRememberToken($user['id'], $token, $expiry);
+                
+                setcookie(
+                    'remember_token',
+                    $token,
+                    $expiry,
+                    '/',
+                    '',
+                    true, 
+                    true  
+                );
+            }
 
             return true;
 
@@ -132,23 +146,37 @@ class User extends \Core\Controller
         }
     }
 
+    public function checkRememberMe()
+    {
+        if (!isset($_SESSION['user']) && isset($_COOKIE['remember_token'])) {
+            $token = $_COOKIE['remember_token'];
+            $user = \App\Models\User::getByRememberToken($token);
+            
+            if ($user && $user['remember_expiry'] > time()) {
+                $_SESSION['user'] = array(
+                    'id' => $user['id'],
+                    'username' => $user['username'],
+                );
+            } else {
+                // Token invalide ou expiré, supprimer le cookie
+                setcookie('remember_token', '', time() - 3600, '/');
+            }
+        }
+    }
 
     /**
      * Logout: Delete cookie and session. Returns true if everything is okay,
      * otherwise turns false.
-     * @access public
-     * @return boolean
-     * @since 1.0.2
      */
     public function logoutAction() {
+        // Supprimer le cookie remember me s'il existe
+        if (isset($_COOKIE['remember_token'])) {
+            $token = $_COOKIE['remember_token'];
+            \App\Models\User::deleteRememberToken($token);
+            setcookie('remember_token', '', time() - 3600, '/');
+        }
 
-        /*
-        if (isset($_COOKIE[$cookie])){
-            // TODO: Delete the users remember me cookie if one has been stored.
-            // https://github.com/andrewdyer/php-mvc-register-login/blob/development/www/app/Model/UserLogin.php#L148
-        }*/
-        // Destroy all data registered to the session.
-
+        // Destroy all data registered to the session
         $_SESSION = array();
 
         if (ini_get("session.use_cookies")) {
@@ -161,8 +189,7 @@ class User extends \Core\Controller
 
         session_destroy();
 
-        header ("Location: /");
-
+        header("Location: /");
         return true;
     }
 
