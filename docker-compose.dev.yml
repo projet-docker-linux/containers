@@ -9,6 +9,7 @@ services:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - php
+    restart: always
 
   php:
     build:
@@ -19,6 +20,7 @@ services:
       - ./php_code:/var/www/html
     depends_on:
       - db
+    restart: always
 
   db:
     image: mariadb:11
