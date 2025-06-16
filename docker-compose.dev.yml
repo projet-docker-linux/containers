@@ -5,7 +5,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./php_code:/var/www/html
+      - ./www:/var/www/html
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - php
@@ -17,7 +17,7 @@ services:
       dockerfile: Dockerfile
     container_name: php-container
     volumes:
-      - ./php_code:/var/www/html
+      - ./www:/var/www/html
     depends_on:
       - db
     restart: always
@@ -33,7 +33,7 @@ services:
       MYSQL_PASSWORD: vgpassword
     volumes:
       - db_data:/var/lib/mysql
-      - ./php_code/sql/import.sql:/docker-entrypoint-initdb.d/import.sql
+      - ./www/sql/import.sql:/docker-entrypoint-initdb.d/import.sql
     ports:
       - "3306:3306"
 
