@@ -27,7 +27,8 @@ CREATE TABLE `articles` (
   `published_date` date DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   `views` int(10) UNSIGNED NOT NULL DEFAULT '0',
-  `picture` varchar(200) DEFAULT NULL
+  `picture` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -37016,7 +37017,6 @@ CREATE TABLE remember_tokens (
 -- Indexes for table `articles`
 --
 ALTER TABLE `articles`
-  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `picture` (`picture`),
   ADD KEY `user_id` (`user_id`);
 
