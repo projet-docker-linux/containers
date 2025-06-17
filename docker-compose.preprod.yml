@@ -5,7 +5,7 @@ services:
     ports:
       - "8081:80"  # Preprod web on localhost:8081
     volumes:
-      - ./www:/var/www/html  # Use same source code
+      - ./www:/var/www/html  # Répertoire vide qui sera rempli par update_preprod_code.sh
       - ./nginx/default.preprod.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - php
@@ -18,8 +18,10 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: preprod-php-container
+    ports:
+      - "9091:80"
     volumes:
-      - ./www:/var/www/html
+      - ./www:/var/www/html  # Répertoire vide qui sera rempli par update_preprod_code.sh
     depends_on:
       - db
     restart: always
