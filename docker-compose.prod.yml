@@ -9,6 +9,7 @@ services:
       - ./nginx/default.prod.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - php
+    restart: always
     networks:
       - prod_net
 
@@ -16,15 +17,15 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: prod-php-container
-    ports:
-      - "9092:80"
+    container_name: prod-php-container  # ✅ moved here
     volumes:
       - ./www:/var/www/html
     depends_on:
       - db
+    restart: always
     networks:
       - prod_net
+
   db:
     image: mariadb:11
     container_name: prod-db-container
@@ -35,14 +36,15 @@ services:
       MYSQL_USER: vguser
       MYSQL_PASSWORD: vgpassword
     volumes:
-      - db_data:/var/lib/mysql
+      - prod_db_data:/var/lib/mysql
+      - ./www/sql/import.sql:/docker-entrypoint-initdb.d/import.sql
     ports:
       - "33062:3306"
-    networks: 
+    networks:
       - prod_net
 
 volumes:
-  db_data:
+  prod_db_data:
 
 networks:
   prod_net:
