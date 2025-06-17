@@ -10,6 +10,8 @@ services:
     depends_on:
       - php
     restart: always
+    networks:
+      - preprod_net
 
   php:
     build:
@@ -21,6 +23,8 @@ services:
     depends_on:
       - db
     restart: always
+    networks:
+      - preprod_net
 
   db:
     image: mariadb:11
@@ -36,6 +40,13 @@ services:
       - ./www/sql/import.sql:/docker-entrypoint-initdb.d/import.sql
     ports:
       - "33061:3306"  # Avoid conflict with dev DB
+    networks:
+      - preprod_net
 
 volumes:
   preprod_db_data:
+
+networks:
+  preprod_net:
+    name: preprod_net
+    driver: bridge
