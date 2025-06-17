@@ -5,3 +5,11 @@ uploads/
 *.log
 *.sh~
 node_modules/
+dump.sql
+*.jpeg
+*.jpg
+*.png
+*.gif
+*.bmp
+*.tiff
+*.ico
