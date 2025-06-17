@@ -26,3 +26,6 @@ restore-db:
 
 delete-all-containers:
 	cd scripts && bash delete_all_containers.sh
+
+build-containers:
+	cd scripts && bash build_containers.sh
