@@ -21,5 +21,8 @@ build-prod-containers:
 connect-prod-db:
 	docker exec -it prod-db-container mariadb -u $(db_username) -p$(db_password) $(db_name)
 
+restore-db:
+	docker exec -it dev-db-container mariadb -u vguser -pvgpassword -e "CREATE DATABASE videgrenier;"
 
-
+delete-all-containers:
+	cd scripts && bash delete_all_containers.sh
