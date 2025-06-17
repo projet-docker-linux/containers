@@ -1,7 +1,7 @@
 services:
   nginx:
     image: nginx:latest
-    container_name: nginx-container
+    container_name: dev-nginx-container
     ports:
       - "8080:80"
     volumes:
@@ -15,7 +15,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: php-container
+    container_name: dev-php-container
     volumes:
       - ./www:/var/www/html
     depends_on:
@@ -24,7 +24,7 @@ services:
 
   db:
     image: mariadb:11
-    container_name: db-container
+    container_name: dev-db-container
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
