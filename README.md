@@ -11,3 +11,5 @@
 | MariaDB              | Production       | 3306         | 33062               | 
 | FTP                  | Machine VM       | 21           | 21                  | 
 | SSH                  | Machine VM       | 22           | 22                  | 
+
+

@@ -19,6 +19,21 @@ class Articles extends Model {
      * @return string|boolean
      * @throws Exception
      */
+    private static $testDB = null;
+
+    public static function setDB($pdo)
+    {
+        self::$testDB = $pdo;
+    }
+
+    protected static function getDB()
+    {
+        if (self::$testDB !== null) {
+            return self::$testDB;
+        }
+
+        return parent::getDB();
+    }
     public static function getAll($filter) {
         $db = static::getDB();
 

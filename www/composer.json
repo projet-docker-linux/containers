@@ -1,13 +1,22 @@
 {
     "require": {
         "twig/twig": "~3.0",
-      "ext-pdo": "*",
-      "ext-json": "*"
+        "ext-pdo": "*",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {
             "Core\\": "Core/",
             "App\\": "App/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "mockery/mockery": "^1.6",
+        "phpunit/phpunit": "^12.2"
     }
 }

@@ -14,7 +14,7 @@ abstract class Controller
      * Parameters from the matched route
      * @var array
      */
-    protected $route_params = [];
+    public $route_params = [];
 
     /**
      * Class constructor

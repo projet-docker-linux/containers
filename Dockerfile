@@ -11,6 +11,10 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo pdo_mysql \
     && apt-get clean
 
+# Install PHPUnit
+RUN curl -Lo /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-10.phar \
+    && chmod +x /usr/local/bin/phpunit
+ENV PATH="/root/.composer/vendor/bin:${PATH}"
 # Install Composer globally
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
