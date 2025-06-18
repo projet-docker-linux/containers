@@ -28,3 +28,6 @@ RUN composer require --dev phpunit/phpunit mockery/mockery
 RUN mkdir -p /var/www/html/public/storage \
     && chown -R www-data:www-data /var/www/html/public/storage \
     && chmod -R 775 /var/www/html/public/storage
+
+# ✅ Add alias for PHPUnit
+RUN echo "alias phpunit='./vendor/bin/phpunit'" >> /root/.bashrc
