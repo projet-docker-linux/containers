@@ -25,6 +25,12 @@ services:
     depends_on:
       - db
     restart: always
+    env_file: "preprod.env"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     networks:
       - preprod_net
 
@@ -32,11 +38,12 @@ services:
     image: mariadb:11
     container_name: preprod-db-container
     restart: always
+    env_file: "dev.env"
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: videgrenier
-      MYSQL_USER: vguser
-      MYSQL_PASSWORD: vgpassword
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
       - preprod_db_data:/var/lib/mysql
       - ./www/sql/import.sql:/docker-entrypoint-initdb.d/import.sql
