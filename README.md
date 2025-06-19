@@ -24,6 +24,3 @@ To test if dump and restore are working :
 - docker exec -it dev-db-container mariadb -u vguser -pvgpassword videgrenier -e "SELECT COUNT(*) FROM articles;"
 
 ======================================================= 
-
-
-AAAAAAAA
