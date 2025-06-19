@@ -1,0 +1,19 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MariaDB",
+            "name": "videgrenier",
+            "database": "videgrenier",
+            "username": "vguser",
+            "password": "vgpassword"
+        }
+    ],
+    "C_Cpp.errorSquiggles": "disabled"
+}
