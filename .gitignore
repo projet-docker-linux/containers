@@ -1,5 +1,4 @@
 vendor/
-.env*
 db_data/
 uploads/
 *.log
