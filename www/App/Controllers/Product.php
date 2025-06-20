@@ -72,4 +72,48 @@ class Product extends \Core\Controller
             'suggestions' => $suggestions
         ]);
     }
+
+    /**
+     * @return void
+     */
+    public function contactAction()
+    {
+        $id = $this->route_params['id'];
+
+        try {
+            $suggestions = Articles::getSuggest();
+            $article = Articles::getOne($id);
+        } catch(\Exception $e){
+            var_dump($e);
+        }
+
+        View::renderTemplate('Product/Contact.html', [
+            'article' => $article[0],
+            'suggestions' => $suggestions
+        ]);
+    }
+
+    /**
+     * Traite l'envoi du formulaire de contact
+     * @return void
+     */
+    public function sendContactAction()
+    {
+        if(isset($_POST['submit'])) {
+            $f = $_POST;
+            
+            if(empty($f['name']) || empty($f['email']) || empty($f['message'])) {
+                $error = "Tous les champs sont obligatoires.";
+                header('Location: /product/' . $f['product_id'] . '/contact');
+                exit;
+            }
+
+            
+            header('Location: /product/' . $f['product_id'] . '?contact=success');
+            exit;
+        }
+        
+        header('Location: /');
+        exit;
+    }
 }
