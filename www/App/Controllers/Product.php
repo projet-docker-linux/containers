@@ -18,11 +18,17 @@ class Product extends \Core\Controller
      */
     public function indexAction()
     {
+        $error = null;
 
         if(isset($_POST['submit'])) {
 
             try {
                 $f = $_POST;
+
+                // Validation de l'image
+                if (!isset($_FILES['picture']) || $_FILES['picture']['error'] === UPLOAD_ERR_NO_FILE) {
+                    throw new \Exception("Une image est obligatoire pour ajouter un produit.");
+                }
 
                 // TODO: Validation
 
@@ -34,12 +40,15 @@ class Product extends \Core\Controller
                 Articles::attachPicture($id, $pictureName);
 
                 header('Location: /product/' . $id);
+                exit;
             } catch (\Exception $e){
-                    var_dump($e);
+                $error = $e->getMessage();
             }
         }
 
-        View::renderTemplate('Product/Add.html');
+        View::renderTemplate('Product/Add.html', [
+            'error' => $error
+        ]);
     }
 
     /**
